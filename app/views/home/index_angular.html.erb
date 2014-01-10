@@ -1,0 +1,39 @@
+<div ng-controller="LessonsCtrl">
+    <div ng-controller="LessonsContentCtrl">
+        <div class="row" >
+            <div ng-switch on="lessonObject.display">
+                <div class="col-md-4" ng-switch-when="false">
+                    <div class="widget tile" ng-repeat="lesson in lessons">
+                        <div class="well">
+                            <i class="icon-magnet icon-4x pull-left"></i> 
+                            <h3 ng-bind="lesson.lesson_name"></h3>
+                            <button class='btn' ng-click="getContent(lesson.id); toggle(); lessonObject.name = lesson.lesson_name; lessonObject.lesson_finished=false">Select Lesson</button>
+                            <button class='btn' ng-hide="!lessonComplete(lesson.id)" ng-click="toggle(); lessonObject.name = lesson.lesson_name; lessonObject.sim_coach_finished = false">Sim Coach</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2" ng-switch on="isCurrentPageIndex($index)" ng-hide="lessonObject.lesson_finished" ng-repeat="content in contents | orderObjectBy: 'page'"> 
+                <div class="well lesson-window" ng-switch-when="true">
+                    <div class="widget lesson-widget">
+                        <h3 ng-bind="lessonObject.name"></h3>
+                        <p>{{content.content}}</p>
+                        <h3>{{content.page}}</h3>
+                        </div>
+                        <div ng-hide="contents.length -1 == $index" class='btn pull-right nav-button' ng-click="prevPage();">next</div>
+                        <div ng-hide="content.page == 1" class='btn pull-left nav-button' ng-click="nextPage();">back</div>
+                        <div ng-show="contents.length -1 == $index" class='btn pull-right nav-button' ng-click="completeLesson(content.lesson_id); prevPage()">Finish!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="simCoachCtrl">
+        <div class='col-md-6' ng-switch on="lessonObject.sim_coach_finished">
+            <div class="well lesson-window" ng-switch-when="false">
+                <h3 ng-bind="lessonObject.name"></h3>
+                <button class='btn' ng-click="lessonObject.sim_coach_finished = true; toggle()">finish</button>
+            </div>
+        </div>
+    </div>
+</div>

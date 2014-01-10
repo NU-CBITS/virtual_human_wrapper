@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <title>VirtualHumanWrapper</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+    <div class="container">
+        <div class="widget nav-widget">
+            <div class="well" id="nav-well">
+                <div class="nav-bar">
+                <a class="title pull-left" href="/">Virtual Human Wrapper</a>
+                <% if current_user && current_user.admin? %>
+                    <%= link_to "Admin", rails_admin_path, :class=>"btn btn-danger pull-right"%>
+                <% end %>
+                <% if current_user %>
+                    <%= link_to "Sign Out", destroy_user_session_path, :method => :delete, :class=>"btn btn-warning pull-right"%>
+                    <p class="signed-in pull-right">Signed in as <%=current_user.email%></p>
+                <% end %>
+            </div>
+            </div>
+        </div>
+        <%= yield %>
+       
+    </div>
+        <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+</body>
+</html>

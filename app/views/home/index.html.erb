@@ -1,0 +1,18 @@
+<div class="row" >
+    <% @lessons.each do |lesson| %>
+    <div class="col-md-4">
+        <div class="widget tile">
+            <div class="well">
+                <i class="icon-magnet icon-4x pull-left"></i> 
+                <h3> <%=lesson.lesson_name%></h3>
+                <a href="<%=lesson_path(lesson)%>" class='btn' >Select Lesson</a>
+                <% if completed?(current_user, lesson)%>
+                    <a href="<%=lesson_path(lesson)%>" class='btn' >Sim Coach</a>
+                <% else %>
+                    <a href="<%=lesson_path(lesson)%>" class='btn disabled' >Sim Coach</a>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <%end%>
+</div>

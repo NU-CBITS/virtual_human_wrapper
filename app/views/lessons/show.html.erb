@@ -1,0 +1,14 @@
+<div class="col-md-8 col-md-offset-2"> 
+    <div class="well lesson-window">
+        <div class="widget lesson-widget">
+            <h3><%=@lesson.lesson_name%></h3>
+            <% @lesson_contents.each_with_index do |lesson_content, i| %>
+                <p><%= lesson_content.content.html_safe %></p>
+                <% if @lesson_contents.last_page?%>
+                    <%=button_to "Finish Lesson", user_lesson_path(current_user, @lesson), :method=>:put, :class=>"btn btn-danger pull-right finish-btn"%>
+                <%end%>
+            <%end%>
+        </div>
+    <%= paginate @lesson_contents %>
+    </div>
+</div>
